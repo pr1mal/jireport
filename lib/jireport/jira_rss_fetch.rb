@@ -8,9 +8,10 @@ module JiReport
     #   :password => [String] - Jira password
     #   :proxy => [String]    - optional
     def initialize params
-      @uri_name = "#{params[:url].chomp '/'}/plugins/servlet/streams?" \
-                  "os_password=#{params[:password]}&" \
-                  "os_username=#{params[:login]}"
+      login = CGI.escape(params[:login])
+      pswd = CGI.escape(params[:password])
+      @uri_name = "#{params[:url].chomp '/'}/plugins/servlet/streams?os_password=#{pswd}&" \
+                  "os_username=#{login}"
 
       @uri_params = { :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE }
       @uri_params[:proxy] = params[:proxy] if params[:proxy]

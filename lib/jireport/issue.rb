@@ -1,5 +1,5 @@
 class Issue < ActiveRecord::Base
-  START_STATUSES = ['Assigned', 'Working on it', 'Resolved']
+  START_STATUSES = ['Assigned', 'Working on it', 'Resolved', 'Under Review']
   END_STATUSES = ['Resolved']
 
   TRACK_STATUSES = ['New'] + START_STATUSES + END_STATUSES
@@ -32,7 +32,8 @@ class Issue < ActiveRecord::Base
 
   STATUS_TO_PERCENT = {
     'Resolved' => '100',
-    'Working on it' => '50'
+    'Working on it' => '50',
+    'Under Review' => '90'
   }
 
   def percent

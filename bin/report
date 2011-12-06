@@ -118,8 +118,12 @@ def report name, from_date, to_date
 
   log.info "sending report to google"
   g_cnf = google_conf
-  %x[bin/ods_to_google '#{g_cnf['login']}' '#{g_cnf['password']}' '#{name}']
-  raise StandardError, "bin/ods_to_google returned #{$?}" unless $? == 0
+  uploader_output = %x[bin/ods_to_google --login='#{g_cnf['login']}' --passwd='#{g_cnf['password']}' --name='#{name}']
+  ret = $?
+  uploader_output.split('\n').each do |l|
+    log.info "  |#{l}"
+  end
+  raise StandardError, "bin/ods_to_google returned #{$?}" unless ret == 0
   log.info "--- finished successfully ---"
 rescue StandardError => e
   msg = e.to_log

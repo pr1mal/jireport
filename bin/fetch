@@ -39,6 +39,10 @@ def fetch
   conf['users'].each_key do |user|
     log.info "fetching issues for #{user}"
     issues = fetcher.fetch_changed_issues user, fetch_limit
+    if issues.size == 0
+      log.info "No issues fetched for #{user}, probably there is an auth problem"
+      next
+    end
     log.info "tracking issues for #{user}"
     issues.each do |issue|
       Issue.track issue

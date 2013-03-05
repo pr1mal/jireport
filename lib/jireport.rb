@@ -13,6 +13,7 @@ require 'cgi'
 module JiReport
   autoload :JiraRSSFetch, 'jireport/jira_rss_fetch'
   autoload :OdsTemplateFormatter, 'jireport/ods_template_formatter'
+  autoload :ExportXlsx, 'jireport/export_xlsx'
 
   class Error < StandardError; end
   class NotAvailableError < Error; end

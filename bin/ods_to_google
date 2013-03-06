@@ -70,7 +70,7 @@ class ODS2GDocsUploader(object):
     return self.uploader.UploadFile(uri, entry=new_entry)
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], '', ['name=', 'convert=', 'chunk_size=', 'login=','passwd=','nossl', 'debug'])
+  opts, args = getopt.getopt(sys.argv[1:], '', ['name=', 'convert=', 'chunk_size=', 'login=','passwd=','nossl', 'debug', 'format='])
 except getopt.error, msg:
   print '''Params:
         --name= [report name to upload]
@@ -78,6 +78,7 @@ except getopt.error, msg:
         --passwd= [passwd]
         --convert= ['true' or 'false' (convert to GDocs internal format or not, default 'true')]
         --nossl [disable HTTPS]
+        --format= [ods|xlsx], ods is default
         --debug [prints debug info if set]'''
   sys.exit(2)
 
@@ -88,6 +89,7 @@ debug = False
 ssl = True
 login = None
 passwd = None
+file_fmt = 'ods'
 
 for option, arg in opts:
   if option == '--name':
@@ -104,6 +106,8 @@ for option, arg in opts:
     ssl = False
   elif option == '--debug':
     debug = True
+  elif option == '--format':
+    file_fmt = arg.lower()
 
 if report_name is None:
   exit('Report name is not given, exiting.')
@@ -112,7 +116,7 @@ if login is None:
 if passwd is None:
   exit('No password, exiting.')
 
-file = os.getcwd() + "/tmp/" + report_name + ".ods"
+file = os.getcwd() + "/tmp/" + report_name + "." + file_fmt
 up = ODS2GDocsUploader(file, login, passwd, chunk_size=chunk_size, convert=convert, ssl=ssl, debug=debug)
 title = report_name
 

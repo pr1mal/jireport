@@ -70,10 +70,38 @@ REPORT_METADATA = begin
     }
   ]
 end
+MGMT_SHEET = {
+  :title => "Management",
+  :no_data => true,
+  :columns => [
+               {
+                 :source => [:user, :fullname],
+                 :header => "Name",
+                 :width => 20
+               },{
+                 :header => "Vac/Ill",
+                 :width => 10,
+                 :value => "none"
+               },{
+                 :header => "On Track",
+                 :width => 5,
+                 :value => "Y"
+               },{
+                 :header => "Delay Details",
+                 :width => 15
+               },{
+                 :header => "Recovery Plan",
+                 :width => 15
+               },{
+                 :header => "Comments",
+                 :width => 25
+               }
+              ]
+}
 
 ROOT = File.expand_path('../..', __FILE__)
 
-def report name, from_date, to_date
+def report name, from_date, to_date, format
   tmp_path = "#{ROOT}/tmp"
   log_path = "#{ROOT}/log"
 
@@ -111,14 +139,18 @@ def report name, from_date, to_date
     data << [OpenStruct.new({ :fullname => fullname }), issues]
   end
 
-  log.info "generating ods data"
-  templ_path = "#{ROOT}/config/template.ods"
-  tmp_file = "#{tmp_path}/#{name}.ods"
-  OdsTemplateFormatter.generate templ_path, tmp_file, REPORT_METADATA, data
-
+  if format == :ods
+    log.info "generating ods data"
+    templ_path = "#{ROOT}/config/template.ods"
+    tmp_file = "#{tmp_path}/#{name}.ods"
+    OdsTemplateFormatter.generate templ_path, tmp_file, REPORT_METADATA, data
+  elsif format == :xlsx
+    doc = ExportXlsx.new([MGMT_SHEET, REPORT_METADATA].flatten, data)
+    doc.save "#{tmp_path}/#{name}.xlsx"
+  end
   log.info "sending report to google"
   g_cnf = google_conf
-  uploader_output = %x[bin/ods_to_google --login='#{g_cnf['login']}' --passwd='#{g_cnf['password']}' --name='#{name}']
+  uploader_output = %x[bin/ods_to_google --login='#{g_cnf['login']}' --passwd='#{g_cnf['password']}' --name='#{name}' --format='#{format.to_s}']
   ret = $?
   uploader_output.split('\n').each do |l|
     log.info "  |#{l}"
@@ -132,9 +164,9 @@ rescue StandardError => e
 end
 
 
-USAGE = 'USAGE: report report_name from_date to_date'
+USAGE = 'USAGE: report report_name from_date to_date format'
 
-if ARGV.size != 3
+if ARGV.size < 3
   puts USAGE
   exit 1
 end
@@ -144,4 +176,11 @@ TIME_FMT = '%Y-%m-%d'
 from = Time.parse(ARGV[1], TIME_FMT)
 to = Time.parse(ARGV[2], TIME_FMT) + 1.day
 
-report ARGV[0], from, to
+format = case ARGV[3]
+         when "xlsx"
+           :xlsx
+         else
+           :ods
+         end
+
+report ARGV[0], from, to, format

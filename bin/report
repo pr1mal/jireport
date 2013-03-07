@@ -11,6 +11,34 @@ require 'active_support/time'
 
 include JiReport
 
+STYLE_CONFIG = {
+  header_alignment: {
+    alignment: {
+      horizontal: :center,
+      vertical: :center,
+      wrap_text: true
+    }
+  },
+  data_alignment: {
+    alignment: {
+      horizontal: :left,
+      vertical: :center,
+      wrap_text: true
+    }
+  },
+  header_color: {
+    bg_color: 'fefe98',
+    b: true,
+    locked: true,
+    border: { style: :thin, color: '00'}
+  },
+  username_color: {
+    fg_color: 'ff0000',
+    b: true,
+    locked: true
+  }
+}
+
 REPORT_METADATA = begin
   short_report_columns = [
     {
@@ -59,14 +87,20 @@ REPORT_METADATA = begin
     :width => 45
   })
 
+  detailed_style = STYLE_CONFIG.dup
+  detailed_style[:username_color] = STYLE_CONFIG[:username_color].dup
+  detailed_style[:username_color][:bg_color] = "c2d1f0"
+  detailed_style[:username_color][:full_row] = true
   [
     {
       :title => 'Short report',
-      :columns => short_report_columns
+     :columns => short_report_columns,
+     :style => STYLE_CONFIG
     },
     {
       :title => 'Detailed report',
-      :columns => detailed
+      :columns => detailed,
+     :style => detailed_style
     }
   ]
 end
@@ -96,7 +130,8 @@ MGMT_SHEET = {
                  :header => "Comments",
                  :width => 25
                }
-              ]
+              ],
+  :style => STYLE_CONFIG
 }
 
 ROOT = File.expand_path('../..', __FILE__)
@@ -133,7 +168,7 @@ def report name, from_date, to_date, format
     issues = Issue.where(:assignee => user,
                          :updated_at => from_date..to_date)
     issues.each do |i|
-      i.summary = CGI.escape_html i.summary
+      i.summary = i.summary
       i.ended_at ||= now
     end
     data << [OpenStruct.new({ :fullname => fullname }), issues]

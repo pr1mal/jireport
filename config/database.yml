@@ -1,4 +1,4 @@
-adapter: mysql2
+adapter: sqlite3
 encoding: utf8
 reconnect: false
 database: jireport

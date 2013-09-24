@@ -11,4 +11,4 @@ to = from + 6.days
 
 title = "Weekly #{now.strftime '%b %d'} Status"
 
-%x[bin/report '#{title}' #{from.strftime TIME_FMT} #{to.strftime TIME_FMT}]
+%x[bin/report '#{title}' #{from.strftime TIME_FMT} #{to.strftime TIME_FMT} xlsx]

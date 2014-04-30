@@ -1,0 +1,49 @@
+<h1>Listing report_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Report</th>
+      <th>Project</th>
+      <th>Task</th>
+      <th>Task desc</th>
+      <th>Msproject task completion date</th>
+      <th>Started at</th>
+      <th>Ended at</th>
+      <th>Percentage</th>
+      <th>Eta</th>
+      <th>Status</th>
+      <th>Issues</th>
+      <th>Risk mitigation plans</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @report_entries.each do |report_entry| %>
+      <tr>
+        <td><%= report_entry.user %></td>
+        <td><%= report_entry.report %></td>
+        <td><%= report_entry.project %></td>
+        <td><%= report_entry.task_id %></td>
+        <td><%= report_entry.task_desc %></td>
+        <td><%= report_entry.msproject_task_completion_date %></td>
+        <td><%= report_entry.started_at %></td>
+        <td><%= report_entry.ended_at %></td>
+        <td><%= report_entry.percentage %></td>
+        <td><%= report_entry.eta %></td>
+        <td><%= report_entry.status %></td>
+        <td><%= report_entry.issues %></td>
+        <td><%= report_entry.risk_mitigation_plans %></td>
+        <td><%= link_to 'Show', report_entry %></td>
+        <td><%= link_to 'Edit', edit_report_entry_path(report_entry) %></td>
+        <td><%= link_to 'Destroy', report_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Report entry', new_report_entry_path %>

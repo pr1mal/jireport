@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :report_entries
+
   resources :reports_users
 
   resources :reports

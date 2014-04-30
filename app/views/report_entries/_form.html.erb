@@ -1,0 +1,69 @@
+<%= form_for(@report_entry) do |f| %>
+  <% if @report_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report_entry.errors.count, "error") %> prohibited this report_entry from being saved:</h2>
+
+      <ul>
+      <% @report_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :report_id %><br>
+    <%= f.text_field :report_id %>
+  </div>
+  <div class="field">
+    <%= f.label :project %><br>
+    <%= f.text_field :project %>
+  </div>
+  <div class="field">
+    <%= f.label :task_id %><br>
+    <%= f.text_field :task_id %>
+  </div>
+  <div class="field">
+    <%= f.label :task_desc %><br>
+    <%= f.text_field :task_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :msproject_task_completion_date %><br>
+    <%= f.datetime_select :msproject_task_completion_date %>
+  </div>
+  <div class="field">
+    <%= f.label :started_at %><br>
+    <%= f.datetime_select :started_at %>
+  </div>
+  <div class="field">
+    <%= f.label :ended_at %><br>
+    <%= f.datetime_select :ended_at %>
+  </div>
+  <div class="field">
+    <%= f.label :percentage %><br>
+    <%= f.number_field :percentage %>
+  </div>
+  <div class="field">
+    <%= f.label :eta %><br>
+    <%= f.datetime_select :eta %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :issues %><br>
+    <%= f.text_area :issues %>
+  </div>
+  <div class="field">
+    <%= f.label :risk_mitigation_plans %><br>
+    <%= f.text_area :risk_mitigation_plans %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

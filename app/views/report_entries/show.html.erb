@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @report_entry.user %>
+</p>
+
+<p>
+  <strong>Report:</strong>
+  <%= @report_entry.report %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @report_entry.project %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @report_entry.task_id %>
+</p>
+
+<p>
+  <strong>Task desc:</strong>
+  <%= @report_entry.task_desc %>
+</p>
+
+<p>
+  <strong>Msproject task completion date:</strong>
+  <%= @report_entry.msproject_task_completion_date %>
+</p>
+
+<p>
+  <strong>Started at:</strong>
+  <%= @report_entry.started_at %>
+</p>
+
+<p>
+  <strong>Ended at:</strong>
+  <%= @report_entry.ended_at %>
+</p>
+
+<p>
+  <strong>Percentage:</strong>
+  <%= @report_entry.percentage %>
+</p>
+
+<p>
+  <strong>Eta:</strong>
+  <%= @report_entry.eta %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @report_entry.status %>
+</p>
+
+<p>
+  <strong>Issues:</strong>
+  <%= @report_entry.issues %>
+</p>
+
+<p>
+  <strong>Risk mitigation plans:</strong>
+  <%= @report_entry.risk_mitigation_plans %>
+</p>
+
+<%= link_to 'Edit', edit_report_entry_path(@report_entry) %> |
+<%= link_to 'Back', report_entries_path %>

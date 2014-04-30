@@ -1,0 +1,1 @@
+json.extract! @report_entry, :id, :user_id, :report_id, :project, :task_id, :task_desc, :msproject_task_completion_date, :started_at, :ended_at, :percentage, :eta, :status, :issues, :risk_mitigation_plans, :created_at, :updated_at

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :reports_users
+
   resources :reports
 
   resources :users

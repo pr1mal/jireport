@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Report:</strong>
+  <%= @reports_user.report %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @reports_user.user %>
+</p>
+
+<p>
+  <strong>Vac:</strong>
+  <%= @reports_user.vac %>
+</p>
+
+<p>
+  <strong>On track:</strong>
+  <%= @reports_user.on_track %>
+</p>
+
+<p>
+  <strong>Delay details:</strong>
+  <%= @reports_user.delay_details %>
+</p>
+
+<p>
+  <strong>Recovery plan:</strong>
+  <%= @reports_user.recovery_plan %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @reports_user.comments %>
+</p>
+
+<p>
+  <strong>User report ready:</strong>
+  <%= @reports_user.user_report_ready %>
+</p>
+
+<%= link_to 'Edit', edit_reports_user_path(@reports_user) %> |
+<%= link_to 'Back', reports_users_path %>

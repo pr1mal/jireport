@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  report_id: 
+  user_id: 
+  vac: MyString
+  on_track: false
+  delay_details: MyString
+  recovery_plan: MyString
+  comments: MyText
+  user_report_ready: false
+
+two:
+  report_id: 
+  user_id: 
+  vac: MyString
+  on_track: false
+  delay_details: MyString
+  recovery_plan: MyString
+  comments: MyText
+  user_report_ready: false

@@ -1,0 +1,39 @@
+<h1>Listing reports_users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Report</th>
+      <th>User</th>
+      <th>Vac</th>
+      <th>On track</th>
+      <th>Delay details</th>
+      <th>Recovery plan</th>
+      <th>Comments</th>
+      <th>User report ready</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports_users.each do |reports_user| %>
+      <tr>
+        <td><%= reports_user.report %></td>
+        <td><%= reports_user.user %></td>
+        <td><%= reports_user.vac %></td>
+        <td><%= reports_user.on_track %></td>
+        <td><%= reports_user.delay_details %></td>
+        <td><%= reports_user.recovery_plan %></td>
+        <td><%= reports_user.comments %></td>
+        <td><%= reports_user.user_report_ready %></td>
+        <td><%= link_to 'Show', reports_user %></td>
+        <td><%= link_to 'Edit', edit_reports_user_path(reports_user) %></td>
+        <td><%= link_to 'Destroy', reports_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reports user', new_reports_user_path %>

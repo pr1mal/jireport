@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430042035) do
+ActiveRecord::Schema.define(version: 20140430043412) do
+
+  create_table "report_entries", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "report_id"
+    t.string   "project"
+    t.string   "task_id"
+    t.string   "task_desc"
+    t.datetime "msproject_task_completion_date"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.integer  "percentage"
+    t.datetime "eta"
+    t.string   "status"
+    t.text     "issues"
+    t.text     "risk_mitigation_plans"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "report_entries", ["report_id"], name: "index_report_entries_on_report_id"
+  add_index "report_entries", ["user_id"], name: "index_report_entries_on_user_id"
 
   create_table "reports", force: true do |t|
     t.datetime "generated_at"

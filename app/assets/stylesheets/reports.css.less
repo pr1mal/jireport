@@ -7,35 +7,54 @@ table.report td {
 	vertical-align: top;
 }
 
+table.report td.editable {
+	padding: 0;
+	vertical-align: top;
+}
+
 table.report th {
 	text-align: center;
 	vertical-align: middle ! important;
 }
 
-@mixin report_table_cell($width) {
-	width: $width;
-}
-
 table.report p.project {
-	@include report_table_cell(60px);
+	width: 60px;
 }
 
 table.report p.task_id {
-	@include report_table_cell(130px);
+	width: 130px;
 }
 
 table.report p.task_desc {
-	@include report_table_cell(400px);
+	width: 400px;
 }
 
 table.report p.task_completion_per_ms_project {
-	@include report_table_cell(80px);
+	width: 80px;
 }
 
 table.report p.start_date {
-	@include report_table_cell(80px);
+	width: 80px;
 }
 
 table.report p.end_date {
-	@include report_table_cell(80px);
+	width: 80px;
+}
+
+table.report p.status {
+	width: 80px;
+}
+
+table.report textarea.issues {
+	padding: 6px;
+	font-size: inherit ! important;
+	border: 0;
+	resize: none;
+}
+
+table.report textarea.risks_mitigation_plans {
+	padding: 6px;
+	font-size: inherit;
+	border: 0;
+	resize: none;
 }

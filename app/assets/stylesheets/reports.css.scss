@@ -1,3 +1,41 @@
 // Place all the styles related to the reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.report td {
+	padding: 5px;
+	vertical-align: top;
+}
+
+table.report th {
+	text-align: center;
+	vertical-align: middle ! important;
+}
+
+@mixin report_table_cell($width) {
+	width: $width;
+}
+
+table.report p.project {
+	@include report_table_cell(60px);
+}
+
+table.report p.task_id {
+	@include report_table_cell(130px);
+}
+
+table.report p.task_desc {
+	@include report_table_cell(400px);
+}
+
+table.report p.task_completion_per_ms_project {
+	@include report_table_cell(80px);
+}
+
+table.report p.start_date {
+	@include report_table_cell(80px);
+}
+
+table.report p.end_date {
+	@include report_table_cell(80px);
+}

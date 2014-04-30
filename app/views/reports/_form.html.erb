@@ -15,6 +15,42 @@
     <%= f.label :generated_at %><br>
     <%= f.datetime_select :generated_at %>
   </div>
+
+  <table class='report table table-striped table-bordered'>
+    <tr>
+      <th>Project</th>
+      <th>Task ID</th>
+      <th>Task Desc</th>
+      <th>Task Completion Date (per MS Project)</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>%</th>
+      <th>ETA for completion</th>
+      <th>Status</th>
+    </tr>
+  <% (@users ||= @report.users).each do |user| %>
+    <tr>
+      <td colspan='11'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
+    </tr>
+    <tr>
+      <td><p class='project'>JIREPORT</p></td>
+      <td><p class='task_id'>JIREPORTNG-15286</p></td>
+      <td><p class='task_desc'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea c</p></td>
+      <td><p class='task_completion_per_ms_project'>12/28/2014</p></td>
+      <td><p class='start_date'>3/01/2015</p></td>
+      <td><p class='end_date'>10/01/2015</p></td>
+      <td><p class='percentage'>100</p></td>
+      <td><p class='est'>15/01/2015</p></td>
+      <td><p class='status'>in progress</p></td>
+    </tr>
+    <tr>
+      <td colspan='2'></td>
+      <td colspan='2'><strong>Issues:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</td>
+      <td colspan='5'><strong>Risks/mitigation plans:</strong> Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea c</td>
+    </tr>
+  <% end %>
+  </table>
+
   <div class="actions">
     <%= f.submit %>
   </div>

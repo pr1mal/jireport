@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
               with: /\A\w{1,30}\z/,
               message: 'should consist of alphanumeric characters',
             }
+
+  def to_s
+    "#{full_name} <#{jira_name}>"
+  end
 end

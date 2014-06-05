@@ -1,13 +1,16 @@
 module JiReport
-
   class JiraRSSFetch
 
+    attr_reader :logger
+    
     # params [Hash] -
     #   :url => [String]      - Jira server url
     #   :login => [String]    - Jira login
     #   :password => [String] - Jira password
     #   :proxy => [String]    - optional
-    def initialize params
+    #   :logger => [Obj]      - logger instance which responds to :info, :debug, :error
+    #   :log_dir =>           - log directory to put log into (doesn't work with :logger)
+    def initialize(params)
       login = CGI.escape(params[:login])
       pswd = CGI.escape(params[:password])
       @uri_name = "#{params[:url].chomp '/'}/activity?os_password=#{pswd}&" \
@@ -15,27 +18,29 @@ module JiReport
 
       @uri_params = { :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE, :read_timeout => 3600 }
       @uri_params[:proxy] = params[:proxy] if params[:proxy]
+      log_dir = params[:log_dir] || File.dirname(__FILE__)+"/log"
+      Dir.mkdir(log_dir) unless File.exists? log_dir
+      @logger = params[:logger] || Logger.new(File.open(log_dir+"/fetch.log", "a"))
     end
 
     DEFAULT_LIMIT = 30
 
     # user [String] - login of user, whose activity entries will be fetched
     # limit [String] - max number of rss entries
-    def fetch user, limit=DEFAULT_LIMIT
+    def fetch(user, limit=DEFAULT_LIMIT)
       full_uri_name = "#{@uri_name}&streams=user+IS+#{user}&maxResults=#{limit}"
 
-      io = open(full_uri_name, @uri_params)
-
       begin
+        io = open(full_uri_name, @uri_params)
         block_given? ? yield(io) : io.read
       ensure
         io.close
       end
     end
 
-    def fetch_changed_issues user, limit=DEFAULT_LIMIT
-      puts "Fetching #{user}..."
-      fetch(user, limit){ |io| SimpleRSS.parse io }.entries.map{ |e|
+    def fetch_changed_issues(user, limit=DEFAULT_LIMIT)
+      logger.info "Fetching #{user}..."
+      fetch(user, limit){ |io| SimpleRSS.parse(io) }.entries.map{ |e|
         # activity:
         #   changed the status to Assigned on
         #   started progress on
@@ -56,7 +61,7 @@ module JiReport
         #puts "  summary: #{summary}"
 
         feed = {
-          :key => bug_id,
+          :task_id => bug_id,
           :assignee => user
         }
 
@@ -71,15 +76,13 @@ module JiReport
           next
         end
 
-        feed[:summary] = CGI.unescape_html CGI.unescape_html summary
+        feed[:task_desc] = CGI.unescape_html(CGI.unescape_html(summary))
         feed[:updated_at] = e.updated
 
-        puts "  #{feed[:updated_at]} #{feed[:key]} => #{feed[:status]}"
+        logger.info "  #{feed[:updated_at]} #{feed[:key]} => #{feed[:status]}"
 
         feed
       }.compact
     end
-
   end
-
 end

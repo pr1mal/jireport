@@ -16,3 +16,40 @@ User.create([
   { full_name: 'Richard Stallman', jira_name: 'sstallman' },
   { full_name: 'Steve Ballmer', jira_name: 'sballmer' },
 ])
+
+Report.delete_all
+
+Report.create([
+  { generated_at: 7.days.ago },
+  { generated_at: Time.now }
+])
+
+class Array
+  def random
+    self[rand(self.size)]
+  end
+end
+
+projects = ["VRF", "NI2"]
+dates = []
+1.upto(10) {|n| dates << n.days.ago }
+entries = []
+User.all.each do |u|
+  1.upto(rand(10)) do    
+    e = {}
+    e[:user_id] = u.id
+    e[:project] = projects.random
+    e[:task_id] = rand(500)
+    e[:task_desc] = "lorem ipsum"
+    e[:started_at] = dates.random
+    e[:ended_at] = nil
+    e[:percentage] = rand(100).to_s
+    entries << e
+  end
+end
+
+require 'pp'
+pp entries
+
+ReportEntry.delete_all
+ReportEntry.create(entries)

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :report_entries
   validates :full_name,
             uniqueness: true,
             format: {

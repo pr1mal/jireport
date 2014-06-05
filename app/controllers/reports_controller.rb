@@ -61,6 +61,33 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def self.fetch_all_issues
+    logger.info "reading config/fetch.yml"
+    conf = YAML::load File.open("#{ROOT}/config/fetch.yml")
+
+    new_last_fetch = Time.now
+
+    fetcher = JiReport::JiraRSSFetch.new(:login => conf['login'],
+                               :password => conf['password'],
+                               :url => conf['url'],
+                               :proxy => conf['proxy'])
+    fetch_limit = conf[:fetch_limit] || DEFAULT_FETCH_LIMIT
+    
+    User.all.each do |user|
+      logger.info "fetching issues for #{user.full_name}"
+      issues = fetcher.fetch_changed_issues(user.jira_user, fetch_limit)
+      if issues.size == 0
+        logger.info "No issues fetched for #{user}, probably there is an auth problem"
+        next
+      end
+      logger.info "tracking issues for #{user}"
+      issues.each do |issue|
+        issue[:user_id] = user.id
+        ReportEntry.track(issue)
+      end
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

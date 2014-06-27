@@ -47,7 +47,8 @@ REPORT_METADATA = begin
       :width => 20
     },
     {
-      :header => 'Project'
+      :header => 'Project',
+      :width => 8
     },
     {
       :source => [:issue, :key],
@@ -55,14 +56,19 @@ REPORT_METADATA = begin
       :width => 17
     },
     {
-      :header => "Task Completion Date (per MS Project)"
+      :header => "Task Completion Date (per MS Project)",
+      :source => [:issue, :empty],
+      :width => 15
     },
     {
       :source => [:issue, :percent],
-      :header => '%'
+      :header => '%',
+      :width => 5
     },
     {
-      :header => "ETA for completion"
+      :source => [:issue, :empty],
+      :header => "ETA for completion",
+      :width => 15
     }
   ]
 
@@ -77,22 +83,26 @@ REPORT_METADATA = begin
   detailed[-2...-2] = [
     {
       :source => [:issue, :start_date],
-      :header => 'Start date'
+      :header => 'Start date',
+      :width => 15
     },
     {
       :source => [:issue, :end_date],
-      :header => 'End date'
+      :header => 'End date',
+      :width => 15
     }
   ]
 
   detailed.push({
     :source => [:issue, :description],
     :header => 'Status',
-    :width => 20
+    :width => 15
   },{
+    :source => [:issue, :empty],
     :header => 'Issues',
     :width => 45
   },{
+    :source => [:issue, :empty],
     :header => "Risks/Mitigation Plans",
     :width => 45
   })
@@ -146,7 +156,7 @@ MGMT_SHEET = {
 
 ROOT = File.expand_path('../..', __FILE__)
 
-def report name, from_date, to_date, format
+def report name, from_date, to_date, format, upload_to_google
   tmp_path = "#{ROOT}/tmp"
   log_path = "#{ROOT}/log"
 
@@ -168,8 +178,10 @@ def report name, from_date, to_date, format
   log.info "reading config/fetch.yml"
   conf = YAML::load File.open "#{ROOT}/config/fetch.yml"
 
-  log.info "reading config/google_auth.yml"
-  google_conf = YAML::load File.open "#{ROOT}/config/google_auth.yml"
+  if upload_to_google
+    log.info "reading config/google_auth.yml"
+    google_conf = YAML::load File.open "#{ROOT}/config/google_auth.yml"
+  end
 
   log.info "gathering report data"
   now = Time.now
@@ -193,23 +205,25 @@ def report name, from_date, to_date, format
     doc = ExportXlsx.new([MGMT_SHEET, REPORT_METADATA].flatten, data)
     doc.save "#{tmp_path}/#{name}.xlsx"
   end
-  log.info "sending report to google"
-  g_cnf = google_conf
-  uploader_output = %x[bin/ods_to_google --login='#{g_cnf['login']}' --passwd='#{g_cnf['password']}' --name='#{name}' --format='#{format.to_s}']
-  ret = $?
-  uploader_output.split('\n').each do |l|
-    log.info "  |#{l}"
+
+  if upload_to_google
+    log.info "sending report to google"
+    g_cnf = google_conf
+    uploader_output = %x[bin/ods_to_google --login='#{g_cnf['login']}' --passwd='#{g_cnf['password']}' --name='#{name}' --format='#{format.to_s}']
+    ret = $?
+    uploader_output.split('\n').each do |l|
+      log.info "  |#{l}"
+    end
+    raise StandardError, "bin/ods_to_google returned #{$?}" unless ret == 0
+    log.info "--- finished successfully ---"
   end
-  raise StandardError, "bin/ods_to_google returned #{$?}" unless ret == 0
-  log.info "--- finished successfully ---"
 rescue StandardError => e
   msg = e.to_log
   STDERR.print msg
   log.error msg
 end
 
-
-USAGE = 'USAGE: report report_name from_date to_date format'
+USAGE = 'USAGE: report report_name from_date to_date [format] [upload_to_google]'
 
 if ARGV.size < 3
   puts USAGE
@@ -227,5 +241,6 @@ format = case ARGV[3]
          else
            :ods
          end
+upload_to_google = ARGV[4] == "true" || false
 
-report ARGV[0], from, to, format
+report ARGV[0], from, to, format, upload_to_google

@@ -47,7 +47,7 @@ class ODS2GDocsUploader(object):
 
     self.uploader = gdata.client.ResumableUploader(
       self.client, self.f, content_type, file_size,
-      chunk_size=self.chunk_size, desired_class=gdata.docs.data.DocsEntry)
+      chunk_size=self.chunk_size, desired_class=gdata.data.GDEntry)
 
   def __del__(self):
     if self.uploader is not None:
@@ -57,10 +57,10 @@ class ODS2GDocsUploader(object):
     """Uploads spreadsheet
 
     Args:
-      new_entry: gdata.data.docs.DocsEntry object with metadata to create spreadsheet with
+      new_entry: gdata.data.GDEntry object with metadata to create spreadsheet with
 
     Returns:
-      A gdata.docs.data.DocsEntry of the created document on server
+      A gdata.data.GDEntry of the created document on server
     """
     uri = self.CREATE_SESSION_URI
 
@@ -124,7 +124,8 @@ print 'Uploading %s' % up.uploader.file_handle.name
 print ' content type: %s' % up.uploader.content_type
 print '         size: %s' % up.uploader.total_file_size
 
-entry = up.upload(gdata.docs.data.DocsEntry(title=atom.data.Title(text=title)))
+entry = up.upload(gdata.data.GDEntry(title=atom.data.Title(text=title)))
 print 'Done: %s' % up.uploader.QueryUploadStatus()
 print 'Document uploaded: ' + entry.title.text
-print 'Quota used: %s' % entry.quota_bytes_used.text
+# print 'Quota used: %s' % entry.quota_bytes_used.text
+# .quota_bytes_used attribute is not available for entry object anymore. Changes in gdata lib

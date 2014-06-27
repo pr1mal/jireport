@@ -47,4 +47,8 @@ class Issue < ActiveRecord::Base
   def description
     STATUS_TO_DESCRIPTION[status] || status
   end
+
+  def empty
+    ""
+  end
 end

@@ -16,6 +16,8 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     @report.users = User.all
+    @issues = Issue.all.group_by(&:assignee)
+
   end
 
   # GET /reports/1/edit

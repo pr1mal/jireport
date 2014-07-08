@@ -14,10 +14,8 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = Report.new
-    @report.users = User.all
-    @issues = Issue.all.group_by(&:assignee)
-
+    @report = Report.new_from_issues(Issue.includes(:user).all)
+    @report_entries = @report.report_entries.group_by { |r| r.user }
   end
 
   # GET /reports/1/edit
@@ -99,6 +97,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:generated_at)
+      params.require(:report)#.permit(:generated_at)
     end
 end

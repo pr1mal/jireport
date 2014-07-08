@@ -34,35 +34,23 @@
       <th>ETA for completion</th>
       <th>Status</th>
     </tr>
-    <% @issues.each do |m| %>
-        <tr>
-          <td colspan='11' class='active'><strong><%=  link_to m[0], '#' , name: m[0]%></td>
-        </tr>
-        <% m[1].each do |i|%>
+
+    <% report_entry_index = 0
+       @report_entries.each do |user, rentry_array| %>
 
         <tr>
-          <td><p class='project'>NETMRI</p></td>
-          <td><p class='task_id'></p><%= i.key %></td>
-          <td><p class='task_desc'><%= i.summary %></p></td>
-          <td><p class='task_completion_per_ms_project'>12/28/2014</p></td>
-          <td><p class='start_date'><%= i.started_at %></p></td>
-          <td><p class='end_date'><%= i.ended_at %></p></td>
-          <td><p class='percentage'>100</p></td>
-          <td><p class='est'>15/01/2015</p></td>
-          <td><p class='status'><%= i.status %></p></td>
+          <td colspan='11' class='active'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
         </tr>
+
+        <% rentry_array.each do |rentry| %>
+
         <tr>
-          <td colspan='2'></td>
-          <td colspan='2' class='editable'>
-            <%= text_area i.assignee, :issues, rows: 3, class: 'form-control issues', spellcheck: false,
-                          value: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.' %>
-          </td>
-          <td colspan='5' class='editable'>
-            <%= text_area i.assignee, :risks_mitigation_plans, rows: 3, class: 'form-control risks_mitigation_plans', spellcheck: false,
-                          value: 'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea c' %>
-          </td>
+          <%= hidden_field_tag "report[report_entry_attributes][#{report_entry_index}][user_id]", rentry.user_id %>
+          <td class="editable"><p class='project'><%= text_area_tag "report[report_entry_attributes][#{report_entry_index}][project]", rentry.project, class: 'form-control project', spellcheck:false %></p></td>
+
         </tr>
-<% end %>
+        <% report_entry_index += 1
+           end %>
     <% end %>
   </table>
 

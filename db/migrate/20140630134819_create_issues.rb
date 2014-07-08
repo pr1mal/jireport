@@ -7,8 +7,8 @@ class CreateIssues < ActiveRecord::Migration
       t.string :project
       t.datetime :started_at
       t.datetime :ended_at
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.timestamps :created_at
+      t.timestamps :updated_at
       t.string :assignee
     end
   end

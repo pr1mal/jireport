@@ -20,12 +20,14 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/edit
   def edit
+    @report_entries = @report.report_entries.group_by { |r| r.user }
   end
 
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new(report_params)
+    #params.permit!
+    @report = Report.new(report_params)#params[:report])
 
     respond_to do |format|
       if @report.save
@@ -97,6 +99,7 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report)#.permit(:generated_at)
+      params.require(:report).permit!
+
     end
 end

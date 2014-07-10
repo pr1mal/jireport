@@ -34,42 +34,38 @@
       <th>ETA for completion</th>
       <th>Status</th>
     </tr>
-
-    <% @report_entries.each do |user, rentry_array| %>
-
-        <tr>
-          <td colspan='11' class='active'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
-        </tr>
-
-        <% rentry_array.each do |rentry| %>
-
-        <tr>
-          <%= hidden_field_tag "report[report_entries_attributes][][user_id]", rentry.user_id %>
-          <%= hidden_field_tag "report[report_entries_attributes][][id]", rentry.id %>
-          <td class="editable"><p class='project'><%= text_area_tag "report[report_entries_attributes][][project]", rentry.project, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_id'><%= text_area_tag "report[report_entries_attributes][][task_id]", rentry.task_id, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_desc'><%= text_area_tag "report[report_entries_attributes][][task_desc]", rentry.task_desc, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_completion_per_ms_project'><%= text_area_tag "report[report_entries_attributes][][msproject_task_completion_date]", rentry.msproject_task_completion_date, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='start_date'><%= text_area_tag "report[report_entries_attributes][][started_at]", rentry.started_at, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='end_date'><%= text_area_tag "report[report_entries_attributes][][ended_at]", rentry.ended_at, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='percentage'><%= text_area_tag "report[report_entries_attributes][][percentage]", rentry.percentage, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='eta'><%= text_area_tag "report[report_entries_attributes][][eta]", rentry.eta, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, class: 'form-control project', spellcheck:false %></p></td>
-        </tr>
-            <tr>
-              <td colspan='2'></td>
-              <td colspan='2' class='editable'>
-                <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, class: 'form-control project', spellcheck:false %>
-              </td>
-              <td colspan='5' class='editable'>
-                <%= text_area_tag "report[report_entries_attributes][][risk_mitigation_plans]", rentry.risk_mitigation_plans, rows: 3, class: 'form-control project', spellcheck:false %>
-              </td>
-        </tr>
-        <% end %>
-    <% end %>
+  <% (@users ||= @report.users).each do |user| %>
+    <tr>
+      <td colspan='11' class='active'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
+    </tr>
+<% rand(4).times do %>
+    <tr>
+      <td><p class='project'>JIREPORT</p></td>
+      <td><p class='task_id'>JIREPORTNG-15286</p></td>
+      <td><p class='task_desc'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea c</p></td>
+      <td><p class='task_completion_per_ms_project'>12/28/2014</p></td>
+      <td><p class='start_date'>3/01/2015</p></td>
+      <td><p class='end_date'>10/01/2015</p></td>
+      <td><p class='percentage'>100</p></td>
+      <td><p class='est'>15/01/2015</p></td>
+      <td><p class='status'>in progress</p></td>
+    </tr>
+    <tr>
+      <td colspan='2'></td>
+      <td colspan='2' class='editable'>
+        <%= text_area user.jira_name, :issues, rows: 3, class: 'form-control issues', spellcheck: false,
+          value: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.' %>
+      </td>
+      <td colspan='5' class='editable'>
+        <%= text_area user.jira_name, :risks_mitigation_plans, rows: 3, class: 'form-control risks_mitigation_plans', spellcheck: false,
+          value: 'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea c' %>
+      </td>
+    </tr>
+<% end %>
+  <% end %>
   </table>
 
-    <div class="actions">
-      <%= f.submit %>
-    </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>

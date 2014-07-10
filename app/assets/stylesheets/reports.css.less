@@ -18,7 +18,7 @@ table.report th {
 }
 
 table.report p.project {
-	width: 60px;
+	width: 70px;
 }
 
 table.report p.task_id {
@@ -30,7 +30,7 @@ table.report p.task_desc {
 }
 
 table.report p.task_completion_per_ms_project {
-	width: 80px;
+	width: 100px;
 }
 
 table.report p.start_date {
@@ -45,16 +45,16 @@ table.report p.status {
 	width: 80px;
 }
 
-table.report textarea.issues {
-	padding: 6px;
-	font-size: inherit ! important;
-	border: 0;
-	resize: none;
+table.report p.percentage {
+    width: 40px;
 }
 
-table.report textarea.risks_mitigation_plans {
+table.report textarea.issues, textarea.task_id, textarea.project,
+textarea.task_desc, textarea.task_completion_per_ms_project,
+textarea.started_at, textarea.end_date, textarea.percentage,
+textarea.eta, textarea.status, textarea.risks_mitigation_plans {
 	padding: 6px;
-	font-size: inherit;
+	font-size: inherit ! important;
 	border: 0;
 	resize: none;
 }

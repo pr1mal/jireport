@@ -1,55 +1,77 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-User.delete_all
-
-User.create([
-  { full_name: 'Sylvester Stallone', jira_name: 'sstallone' },
-  { full_name: 'Ricky Martin', jira_name: 'rmartin' },
-  { full_name: 'Pablo Picasso', jira_name: 'ppicasso' },
-  { full_name: 'Joseph Stalin', jira_name: 'jstalin' },
-  { full_name: 'Richard Stallman', jira_name: 'sstallman' },
-  { full_name: 'Steve Ballmer', jira_name: 'sballmer' },
+Issue.create!([
+  {key: "JIREPORT-12885", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 19:14:00", ended_at: "2012-08-30 19:14:00", assignee: "chan"},
+  {key: "JIREPORT-12520", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 18:56:36", ended_at: "2012-08-30 18:56:36", assignee: "reeves"},
+  {key: "JIREPORT-13317", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-27 20:22:01", ended_at: "2012-08-27 20:22:01", assignee: "chan"},
+  {key: "JIREPORT-13091", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-27 14:55:25", ended_at: "2012-08-27 14:55:25", assignee: "chan"},
+  {key: "JIREPORT-12895", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 17:21:28", ended_at: "2012-08-24 17:21:28", assignee: "chan"},
+  {key: "JIREPORT-12894", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 16:22:25", ended_at: "2012-09-14 18:24:26", assignee: "chan"},
+  {key: "JIREPORT-12670", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-20 14:01:40", ended_at: "2012-08-20 14:01:40", assignee: "chan"},
+  {key: "JIREPORT-12977", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-17 18:17:45", ended_at: "2012-09-14 18:24:02", assignee: "reeves"},
+  {key: "JIREPORT-13363", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 20:29:29", ended_at: "2012-08-30 20:29:29", assignee: "reeves"},
+  {key: "JIREPORT-11888", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 20:14:28", ended_at: "2012-08-30 20:14:28", assignee: "reeves"},
+  {key: "JIREPORT-12278", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 12:54:03", ended_at: "2012-08-28 12:54:03", assignee: "reeves"},
+  {key: "JIREPORT-13244", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-27 19:56:49", ended_at: "2012-08-27 19:56:49", assignee: "reeves"},
+  {key: "JIREPORT-13192", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 13:30:48", ended_at: "2012-08-24 13:30:48", assignee: "reeves"},
+  {key: "JIREPORT-13222", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-23 11:57:13", ended_at: "2012-08-23 11:57:13", assignee: "reeves"},
+  {key: "JIREPORT-12981", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-21 19:26:41", ended_at: "2012-08-21 19:26:41", assignee: "reeves"},
+  {key: "JIREPORT-12997", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-21 18:17:23", ended_at: "2012-08-21 18:17:23", assignee: "reeves"},
+  {key: "JIREPORT-12649", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 18:01:28", ended_at: "2012-08-31 18:01:28", assignee: "prime"},
+  {key: "JIREPORT-13195", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 15:02:16", ended_at: "2012-08-31 15:02:16", assignee: "prime"},
+  {key: "JIREPORT-12163", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 15:00:29", ended_at: "2012-08-31 15:00:29", assignee: "prime"},
+  {key: "JIREPORT-13296", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 14:59:48", ended_at: "2012-08-31 14:59:48", assignee: "prime"},
+  {key: "JIREPORT-13355", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 14:53:05", ended_at: "2012-08-31 14:53:05", assignee: "prime"},
+  {key: "JIREPORT-13275", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 18:31:34", ended_at: "2012-08-30 18:31:34", assignee: "prime"},
+  {key: "JIREPORT-13295", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 16:02:01", ended_at: "2012-08-30 16:02:01", assignee: "prime"},
+  {key: "JIREPORT-12896", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 11:59:58", ended_at: "2012-08-24 11:59:58", assignee: "prime"},
+  {key: "JIREPORT-12850", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 11:59:37", ended_at: "2012-08-24 11:59:37", assignee: "prime"},
+  {key: "JIREPORT-12471", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 11:54:08", ended_at: "2012-08-24 11:54:08", assignee: "prime"},
+  {key: "JIREPORT-12468", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 11:51:03", ended_at: "2012-08-24 11:51:03", assignee: "prime"},
+  {key: "JIREPORT-12589", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-08-29 16:54:55", ended_at: nil, assignee: "mouse"},
+  {key: "JIREPORT-11841", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-29 16:51:27", ended_at: "2012-08-29 16:51:27", assignee: "mouse"},
+  {key: "JIREPORT-13232", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-27 12:56:25", ended_at: "2012-08-27 12:56:25", assignee: "mouse"},
+  {key: "JIREPORT-13207", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 14:19:19", ended_at: "2012-09-10 10:02:35", assignee: "knightley"},
+  {key: "JIREPORT-13070", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-24 13:57:49", ended_at: "2012-08-24 13:57:49", assignee: "mouse"},
+  {key: "JIREPORT-13148", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-22 13:56:38", ended_at: "2012-08-22 13:56:38", assignee: "mouse"},
+  {key: "JIREPORT-13325", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-29 13:37:14", ended_at: "2012-09-06 13:44:29", assignee: "reeves"},
+  {key: "JIREPORT-11824", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 20:29:48", ended_at: "2012-08-28 20:29:48", assignee: "duck"},
+  {key: "JIREPORT-11958", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 20:26:19", ended_at: "2012-08-28 20:26:19", assignee: "duck"},
+  {key: "JIREPORT-9959", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 18:16:50", ended_at: nil, assignee: "duck"},
+  {key: "JIREPORT-13345", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 18:14:15", ended_at: "2012-08-28 18:14:15", assignee: "duck"},
+  {key: "JIREPORT-12844", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 18:13:06", ended_at: "2012-08-28 18:13:06", assignee: "duck"},
+  {key: "JIREPORT-12232", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 17:18:49", ended_at: "2012-08-28 17:18:49", assignee: "duck"},
+  {key: "JIREPORT-13094", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 14:24:38", ended_at: "2012-08-28 14:24:38", assignee: "duck"},
+  {key: "JIREPORT-13381", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 19:55:52", ended_at: "2012-08-30 19:55:52", assignee: "knightley"},
+  {key: "JIREPORT-13318", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-08-30 12:37:48", ended_at: nil, assignee: "knightley"},
+  {key: "JIREPORT-12769", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 14:33:53", ended_at: "2012-08-28 14:33:53", assignee: "knightley"},
+  {key: "JIREPORT-13239", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 12:59:48", ended_at: "2012-08-28 12:59:48", assignee: "knightley"},
+  {key: "JIREPORT-12512", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 10:37:37", ended_at: "2012-10-16 06:45:04", assignee: "mouse"},
+  {key: "JIREPORT-12556", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-28 10:37:13", ended_at: "2012-09-28 04:32:40", assignee: "mouse"},
+  {key: "JIREPORT-13203", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-27 20:27:54", ended_at: "2012-11-02 17:19:18", assignee: "reeves"},
+  {key: "JIREPORT-13063", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-23 15:23:33", ended_at: "2012-08-23 15:23:33", assignee: "knightley"},
+  {key: "JIREPORT-13055", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-23 14:52:39", ended_at: "2012-08-23 14:52:39", assignee: "knightley"},
+  {key: "JIREPORT-12340", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-22 17:38:39", ended_at: "2012-08-22 17:38:39", assignee: "knightley"},
+  {key: "JIREPORT-13027", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-09-06 07:00:53", ended_at: nil, assignee: "reeves"},
+  {key: "JIREPORT-13510", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-04 11:59:48", ended_at: "2012-09-04 11:59:48", assignee: "reeves"},
+  {key: "JIREPORT-13437", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-04 10:41:01", ended_at: "2012-09-04 10:41:01", assignee: "reeves"},
+  {key: "JIREPORT-13301", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-08-31 11:39:25", ended_at: "2012-08-31 11:39:25", assignee: "reeves"},
+  {key: "JIREPORT-13287", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 04:59:06", ended_at: nil, assignee: "prime"},
+  {key: "JIREPORT-12974", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 04:58:39", ended_at: "2012-09-07 04:58:39", assignee: "prime"},
+  {key: "JIREPORT-13530", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 04:56:23", ended_at: "2012-09-07 04:56:23", assignee: "prime"},
+  {key: "JIREPORT-11793", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 04:52:54", ended_at: "2012-09-07 04:52:54", assignee: "prime"},
+  {key: "JIREPORT-11948", status: "Under Review", summary: "lorem ipsum", project: nil, started_at: "2012-09-03 03:35:30", ended_at: nil, assignee: "prime"},
+  {key: "JIREPORT-13367", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-05 06:10:50", ended_at: "2012-09-05 06:10:50", assignee: "mouse"},
+  {key: "JIREPORT-13419", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 08:54:01", ended_at: "2012-09-07 08:54:01", assignee: "knightley"},
+  {key: "JIREPORT-13201", status: "Assigned", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 09:37:43", ended_at: nil, assignee: "chan"},
+  {key: "JIREPORT-12816", status: "Under Review", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 10:57:18", ended_at: nil, assignee: "mouse"},
+  {key: "JIREPORT-13390", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-07 10:07:52", ended_at: "2012-09-07 10:07:52", assignee: "knightley"},
+  {key: "JIREPORT-12525", status: "Resolved", summary: "lorem ipsum", project: nil, started_at: "2012-09-14 10:52:08", ended_at: "2012-09-14 10:52:08", assignee: "reeves"}
 ])
 
-Report.delete_all
-
-Report.create([
-  { generated_at: 7.days.ago },
-  { generated_at: Time.now }
+User.create!([
+  {full_name: "Jackie Chan", jira_name: "chan"},
+  {full_name: "Keanu Reeves", jira_name: "reeves"},
+  {full_name: "Kira Knightley", jira_name: "knightley"},
+  {full_name: "Mickey Mouse", jira_name: "mouse"},
+  {full_name: "Donald Duck", jira_name: "duck"},
+  {full_name: "Optimus Prime", jira_name: "prime"}
 ])
-
-class Array
-  def random
-    self[rand(self.size)]
-  end
-end
-
-projects = ["VRF", "NI2"]
-dates = []
-1.upto(10) {|n| dates << n.days.ago }
-entries = []
-User.all.each do |u|
-  1.upto(rand(10)) do    
-    e = {}
-    e[:user_id] = u.id
-    e[:project] = projects.random
-    e[:task_id] = rand(500)
-    e[:task_desc] = "lorem ipsum"
-    e[:started_at] = dates.random
-    e[:ended_at] = nil
-    e[:percentage] = rand(100).to_s
-    entries << e
-  end
-end
-
-require 'pp'
-pp entries
-
-ReportEntry.delete_all
-ReportEntry.create(entries)

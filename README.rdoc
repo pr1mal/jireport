@@ -1,5 +1,7 @@
 == Welcome to JiReport
 
+{<img src="https://codeclimate.com/github/pr1mal/jireport.png" />}[https://codeclimate.com/github/pr1mal/jireport]
+
 jireport is console app in ruby 1.9
 
 It is designed to create custom reports of issue resolve activity in JIRA.

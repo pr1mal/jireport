@@ -1,3 +1,14 @@
+<script type="text/javascript">
+    $(function() {
+        $("#report_report_entries_attributes__started_at").datepicker({
+            showOn: 'both',
+
+            buttonImageOnly: true,
+            onSelect: function(date,inst) {
+            }
+        });
+    });
+</script>
 <%= form_for(@report) do |f| %>
   <% if @report.errors.any? %>
     <div id="error_explanation">
@@ -50,7 +61,7 @@
           <td class="editable"><p class='task_id'><%= text_area_tag "report[report_entries_attributes][][task_id]", rentry.task_id, class: 'form-control project', spellcheck:false %></p></td>
           <td class="editable"><p class='task_desc'><%= text_area_tag "report[report_entries_attributes][][task_desc]", rentry.task_desc, class: 'form-control project', spellcheck:false %></p></td>
           <td class="editable"><p class='task_completion_per_ms_project'><%= text_area_tag "report[report_entries_attributes][][msproject_task_completion_date]", rentry.msproject_task_completion_date, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='start_date'><%= text_area_tag "report[report_entries_attributes][][started_at]", rentry.started_at, class: 'form-control project', spellcheck:false %></p></td>
+          <td class="editable"><p class='start_date'><%= text_field_tag "report[report_entries_attributes][][started_at]", rentry.started_at, class: 'form-control project datepicker', spellcheck:false %></p></td>
           <td class="editable"><p class='end_date'><%= text_area_tag "report[report_entries_attributes][][ended_at]", rentry.ended_at, class: 'form-control project', spellcheck:false %></p></td>
           <td class="editable"><p class='percentage'><%= text_area_tag "report[report_entries_attributes][][percentage]", rentry.percentage, class: 'form-control project', spellcheck:false %></p></td>
           <td class="editable"><p class='eta'><%= text_area_tag "report[report_entries_attributes][][eta]", rentry.eta, class: 'form-control project', spellcheck:false %></p></td>

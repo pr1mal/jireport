@@ -1,14 +1,20 @@
 <script type="text/javascript">
     $(function() {
-        $("#report_report_entries_attributes__started_at").datepicker({
-            showOn: 'both',
-
+        var dt = $("#calendar").datepicker({
+            autoclose: true,
             buttonImageOnly: true,
-            onSelect: function(date,inst) {
-            }
-        });
+            getUTCDates: true,
+            format: "yyyy-mm-dd"
+        }).data('datepicker');
+        $(".calendar").on("click", function() {
+            dt.element = $(this);
+            dt.show();
+        })
     });
 </script>
+
+<input type="text" id="calendar" style="display: none" />
+
 <%= form_for(@report) do |f| %>
   <% if @report.errors.any? %>
     <div id="error_explanation">
@@ -23,8 +29,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :generated_at %><br>
-    <%= f.datetime_select :generated_at %>
+    <% f.label :generated_at %><br>
+    <% f.datetime_select :generated_at %>
   </div>
 
   <ul class='nav nav-tabs'>
@@ -49,7 +55,7 @@
     <% @report_entries.each do |user, rentry_array| %>
 
         <tr>
-          <td colspan='11' class='active'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
+          <td colspan='12' class='active'><strong><%= link_to user.full_name, user, name: user.jira_name %></td>
         </tr>
 
         <% rentry_array.each do |rentry| %>
@@ -57,22 +63,22 @@
         <tr>
           <%= hidden_field_tag "report[report_entries_attributes][][user_id]", rentry.user_id %>
           <%= hidden_field_tag "report[report_entries_attributes][][id]", rentry.id %>
-          <td class="editable"><p class='project'><%= text_area_tag "report[report_entries_attributes][][project]", rentry.project, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_id'><%= text_area_tag "report[report_entries_attributes][][task_id]", rentry.task_id, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_desc'><%= text_area_tag "report[report_entries_attributes][][task_desc]", rentry.task_desc, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='task_completion_per_ms_project'><%= text_area_tag "report[report_entries_attributes][][msproject_task_completion_date]", rentry.msproject_task_completion_date, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='start_date'><%= text_field_tag "report[report_entries_attributes][][started_at]", rentry.started_at, class: 'form-control project datepicker', spellcheck:false %></p></td>
-          <td class="editable"><p class='end_date'><%= text_area_tag "report[report_entries_attributes][][ended_at]", rentry.ended_at, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='percentage'><%= text_area_tag "report[report_entries_attributes][][percentage]", rentry.percentage, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='eta'><%= text_area_tag "report[report_entries_attributes][][eta]", rentry.eta, class: 'form-control project', spellcheck:false %></p></td>
-          <td class="editable"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, class: 'form-control project', spellcheck:false %></p></td>
+          <td class="editable project"><p class='project'><%= text_area_tag "report[report_entries_attributes][][project]", rentry.project, rows: 4, class: 'form-control project pro', spellcheck:false %></p></td>
+          <td class="editable task_id"><p class='task_id'><%= text_area_tag "report[report_entries_attributes][][task_id]", rentry.task_id, rows: 4, class: 'form-control project task_id', spellcheck:false %></p></td>
+          <td class="editable"><p class='task_desc'><%= text_area_tag "report[report_entries_attributes][][task_desc]", rentry.task_desc,rows: 4, class: 'form-control project', spellcheck:false %></p></td>
+          <td class="editable date"><p class='task_completion_per_ms_project'><%= text_field_tag "report[report_entries_attributes][][msproject_task_completion_date]", rentry.msproject_task_completion_date.try(:to_date), class: 'form-control project calendar', spellcheck:false %></p></td>
+          <td class="editable date"><p class='start_date'><%= text_field_tag "report[report_entries_attributes][][started_at]", rentry.started_at.try(:to_date), class: 'form-control project calendar', spellcheck:false %></p></td>
+          <td class="editable date"><p class='end_date'><%= text_field_tag "report[report_entries_attributes][][ended_at]", rentry.ended_at.try(:to_date), class: 'form-control project calendar', spellcheck:false %></p></td>
+          <td class="editable percentage"><p class='percentage'><%= text_area_tag "report[report_entries_attributes][][percentage]", rentry.percentage, rows: 4, class: 'form-control project', spellcheck:false %></p></td>
+          <td class="editable date"><p class='eta'><%= text_field_tag "report[report_entries_attributes][][eta]", rentry.eta.try(:to_date), class: 'form-control project calendar', spellcheck:false %></p></td>
+          <td class="editable status"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, rows: 4, class: 'form-control project status', spellcheck:false %></p></td>
         </tr>
             <tr>
               <td colspan='2'></td>
-              <td colspan='2' class='editable'>
+              <td colspan='1' class='editable'>
                 <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, class: 'form-control project', spellcheck:false %>
               </td>
-              <td colspan='5' class='editable'>
+              <td colspan='6' class='editable'>
                 <%= text_area_tag "report[report_entries_attributes][][risk_mitigation_plans]", rentry.risk_mitigation_plans, rows: 3, class: 'form-control project', spellcheck:false %>
               </td>
         </tr>

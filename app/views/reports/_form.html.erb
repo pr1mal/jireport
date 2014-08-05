@@ -10,10 +10,37 @@
             dt.element = $(this);
             dt.show();
         })
+
+        $('#submit_button').click(function(e){
+            e.preventDefault();
+            var valuesToSubmit = $('form').serialize();
+            $.ajax({
+                url: $('form').attr('action'),
+                data: valuesToSubmit,
+                dataType: 'json',
+                type: 'PUT',
+                success: function(json){
+                    console.log("TESTET");
+                    var data = $.parseJSON(json);
+                    console.log(data);
+                    if (data.location) {
+                        window.location.href = data.location;
+                    }
+                },
+                error: function(){
+                    console.log("error");
+                }
+            });
+            return false;
+        });
     });
+
+
 </script>
 
 <input type="text" id="calendar" style="display: none" />
+
+<%= button_tag "name", id: 'submit_button', remote: true %>
 
 <%= form_for(@report) do |f| %>
   <% if @report.errors.any? %>

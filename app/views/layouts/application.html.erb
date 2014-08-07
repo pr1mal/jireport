@@ -52,6 +52,7 @@
           <ul class="nav navbar-nav">
             <li><%= link_to "Reports", reports_path  %></li>
             <li><%= link_to "Reports users", reports_users_path  %></li>
+            <%= yield :form %>
           </ul>
         </div>
       </div>

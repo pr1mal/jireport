@@ -10,10 +10,37 @@
             dt.element = $(this);
             dt.show();
         })
+
+        $('#submit_button').click(function(e){
+            e.preventDefault();
+            var valuesToSubmit = $('form').serialize();
+            $.ajax({
+                url: $('form').attr('action') + '.json',
+                data: valuesToSubmit,
+                dataType: 'json',
+                type: 'post',
+                success: function(data){
+                    console.log(data);
+                    if (data.location) {
+                        window.location.href = data.location;
+                    }
+                },
+                error: function(){
+                    console.log("error");
+                }
+            });
+            return false;
+        });
     });
 </script>
 
+<%= content_for :form do%>
+    <li><%= button_tag "Save report", id: 'submit_button', remote: true %></li>
+<% end %>
+
 <input type="text" id="calendar" style="display: none" />
+
+
 
 <%= form_for(@report) do |f| %>
   <% if @report.errors.any? %>
@@ -85,8 +112,4 @@
         <% end %>
     <% end %>
   </table>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
 <% end %>

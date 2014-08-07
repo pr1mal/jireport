@@ -32,9 +32,11 @@
             return false;
         });
     });
-
-
 </script>
+
+<%= content_for :form do%>
+    <li><%= button_tag "Save report", id: 'submit_button', remote: true %></li>
+<% end %>
 
 <input type="text" id="calendar" style="display: none" />
 
@@ -62,7 +64,6 @@
     <li><a href='#'>Management</a></li>
     <li><a href='#'>Short report</a></li>
     <li class='active'><a href='#'>Detailed report</a></li>
-    <%= button_tag "Save report", id: 'submit_button', remote: true %>
   </ul>
 
   <table class='report table table-bordered'>

@@ -31,6 +31,24 @@
             });
             return false;
         });
+
+        $(document).ready(function(){
+            var i=1;
+
+            $(".add_row").click(function(){
+                $('<%=j render 'forjs' %>').insertAfter($(this).closest('tr'));
+
+
+                i++;
+            });
+            $("#delete_row").click(function(){
+                if(i>1){
+                    $("#addr"+(i-1)).html('');
+                    i--;
+                }
+            });
+
+        });
     });
 </script>
 
@@ -101,12 +119,12 @@
           <td class="editable status"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, rows: 4, class: 'form-control project status', spellcheck:false %></p></td>
         </tr>
             <tr>
-              <td colspan='2'></td>
+              <td colspan='2'><a class="btn btn-default pull-left add_row">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a></td>
               <td colspan='1' class='editable'>
-                <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, class: 'form-control project', spellcheck:false %>
+                <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, placeholder: "Issues", class: 'form-control project', spellcheck:false %>
               </td>
               <td colspan='6' class='editable'>
-                <%= text_area_tag "report[report_entries_attributes][][risk_mitigation_plans]", rentry.risk_mitigation_plans, rows: 3, class: 'form-control project', spellcheck:false %>
+                <%= text_area_tag "report[report_entries_attributes][][risk_mitigation_plans]", rentry.risk_mitigation_plans, rows: 3, placeholder: "Risk migration plans", class: 'form-control project', spellcheck:false %>
               </td>
         </tr>
         <% end %>

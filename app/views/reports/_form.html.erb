@@ -6,7 +6,7 @@
             getUTCDates: true,
             format: "yyyy-mm-dd"
         }).data('datepicker');
-        $(".calendar").on("click", function() {
+        $("body").on("click", "input.calendar", function() {
             dt.element = $(this);
             dt.show();
         })
@@ -32,23 +32,19 @@
             return false;
         });
 
-        $(document).ready(function(){
+
             var i=1;
 
-            $(".add_row").click(function(){
+            $("body").on("click", "a.add_row", function(){
+                $(this).attr("data-userid")
                 $('<%=j render 'forjs' %>').insertAfter($(this).closest('tr'));
-
-
-                i++;
             });
-            $("#delete_row").click(function(){
-                if(i>1){
-                    $("#addr"+(i-1)).html('');
-                    i--;
-                }
+            $("body").on("click", "a.delete_row", function(){
+                var tr = $(this).closest('tr');
+                tr.add(tr.prev()).remove();
             });
 
-        });
+
     });
 </script>
 
@@ -119,7 +115,7 @@
           <td class="editable status"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, rows: 4, class: 'form-control project status', spellcheck:false %></p></td>
         </tr>
             <tr>
-              <td colspan='2'><a class="btn btn-default pull-left add_row">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a></td>
+              <td colspan='2'><a class="btn btn-default pull-left add_row" data-userid="<%= rentry.user_id %>">Add Row</a><a class="pull-right btn btn-default delete_row">Delete Row</a></td>
               <td colspan='1' class='editable'>
                 <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, placeholder: "Issues", class: 'form-control project', spellcheck:false %>
               </td>

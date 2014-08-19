@@ -36,8 +36,9 @@
             var i=1;
 
             $("body").on("click", "a.add_row", function(){
-                $(this).attr("data-userid")
-                $('<%=j render 'forjs' %>').insertAfter($(this).closest('tr'));
+                var template = "<%=j render 'forjs' %>";
+                var test = template.replace(/addrowuserid/g, $(this).attr("data-userid"));
+                $(test).insertAfter($(this).closest('tr'));
             });
             $("body").on("click", "a.delete_row", function(){
                 var tr = $(this).closest('tr');

@@ -41,7 +41,7 @@ class ReportEntriesController < ApplicationController
   # PATCH/PUT /report_entries/1.json
   def update
     respond_to do |format|
-      if @report_entry.update(report_entry_params)
+      if @report_entry.update_attributes(report_entry_params)
         format.html { redirect_to @report_entry, notice: 'Report entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @report_entry }
       else

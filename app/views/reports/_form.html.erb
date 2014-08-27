@@ -6,10 +6,11 @@
             getUTCDates: true,
             format: "yyyy-mm-dd"
         }).data('datepicker');
+
         $("body").on("click", "input.calendar", function() {
             dt.element = $(this);
             dt.show();
-        })
+        });
 
         $('#submit_button').click(function(e){
             e.preventDefault();
@@ -32,20 +33,34 @@
             return false;
         });
 
+        $("body").on("click", "a.add_row", function(){
+            var template = "<%=j render 'forjs' %>";
+            var test = template.replace(/addrowuserid/g, $(this).attr("data-userid"));
+            $(test).insertAfter($(this).closest('tr'));
+        });
 
-            var i=1;
-
-            $("body").on("click", "a.add_row", function(){
-                var template = "<%=j render 'forjs' %>";
-                var test = template.replace(/addrowuserid/g, $(this).attr("data-userid"));
-                $(test).insertAfter($(this).closest('tr'));
-            });
-            $("body").on("click", "a.delete_row", function(){
+        $("body").on("click", "a.delete_row", function(e){
+            e.preventDefault();
                 var tr = $(this).closest('tr');
-                tr.add(tr.prev()).remove();
-            });
+                var entryid = $(this).attr('data-entryid');
+                if (confirm('Are you sure you want to delete this?')) {
+                    if (entryid){
+                        $.ajax({
+                            url: '/report_entries/'+ entryid + '.json',
+                            dataType: 'json',
+                            type: 'delete',
+                            success: function(data){
+                               console.log(data);
 
-
+                            },
+                            error: function(){
+                                console.log("error");
+                        }
+                    });
+                }
+            }
+            tr.add(tr.prev()).remove();
+        });
     });
 </script>
 
@@ -116,7 +131,7 @@
           <td class="editable status"><p class='status'><%= text_area_tag "report[report_entries_attributes][][status]", rentry.status, rows: 4, class: 'form-control project status', spellcheck:false %></p></td>
         </tr>
             <tr>
-              <td colspan='2'><a class="btn btn-default pull-left add_row" data-userid="<%= rentry.user_id %>">Add Row</a><a class="pull-right btn btn-default delete_row">Delete Row</a></td>
+              <td colspan='2'><a class="btn btn-default pull-left add_row" data-userid="<%= rentry.user_id %>">Add Row</a><a class="pull-right btn btn-default delete_row" data-entryid="<%= rentry.id %>">Delete Row</a></td>
               <td colspan='1' class='editable'>
                 <%= text_area_tag "report[report_entries_attributes][][issues]", rentry.issues, rows: 3, placeholder: "Issues", class: 'form-control project', spellcheck:false %>
               </td>

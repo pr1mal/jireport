@@ -1,7 +1,7 @@
 class Report < ActiveRecord::Base
   has_many :reports_users
   has_many :users, through: :reports_users
-  has_many :report_entries
+  has_many :report_entries, :dependent => :destroy
 
   accepts_nested_attributes_for :report_entries
 
